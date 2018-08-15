@@ -1,19 +1,16 @@
-package combiningobservables;
+package errorhandlingoperators;
 
 import rx.Observable;
 import rx.Subscriber;
-import rx.functions.Func2;
 
-public class CombineLatest {
+public class Retry {
     public static void main(String[] args) {
 
-        Observable.combineLatest(Observable.<Integer>just(1,2,3,4,5), Observable.<String>just("A","B","C","D"),
-                new Func2<Integer,String,String>(){
-            @Override
-            public String call(Integer t1, String t2) {
-                return t1 + t2;
-            }
-        }).subscribe(new Subscriber<String>(){
+        // Observable.retry()
+        System.out.println("Observable.retry()");        
+        Observable.just(1, 2, 3, 4, 5)
+                .retry()
+                .subscribe(new Subscriber<Integer>(){
             @Override
             public void onCompleted() {
                 System.out.println("All items have been emitted.");
@@ -25,7 +22,7 @@ public class CombineLatest {
             }
 
             @Override
-            public void onNext(String t) {
+            public void onNext(Integer t) {
                 System.out.print(t + " ");
             }
         });
